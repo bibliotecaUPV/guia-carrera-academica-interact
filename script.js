@@ -26,13 +26,13 @@ function calcularDiagnostico() {
         ];
         
         if (articulos === "0") {
-            checklist.push("<strong>Urgente - Investigación:</strong> Priorizar la redacción de al menos 1-2 artículos JCR/SJR antes de enfilar el tercer año de tesis.");
+            checklist.push("<strong>Investigación:</strong> Priorizar la redacción de al menos 1-2 artículos JCR/SJR antes de enfilar el tercer año de tesis.");
         } else {
             checklist.push("<strong>Investigación en marcha:</strong> Buen ritmo de publicaciones. Mantén perfiles actualizados en ORCID y Google Scholar.");
         }
 
         if (docencia === "0") {
-            checklist.push("<strong>Docencia:</strong> Solicitar la 'venia docendi' en tu departamento para empezar a sumar horas oficiales (hasta el límite de tu contrato).");
+            checklist.push("<strong>Docencia:</strong> Solicitar la venia docendi en tu departamento para empezar a sumar horas oficiales (hasta el límite de tu contrato).");
         } else {
             checklist.push("<strong>Docencia:</strong> ¡Excelente! Ya acumulas horas docentes. Guarda certificados de cada curso impartido.");
         }
@@ -86,7 +86,7 @@ function calcularDiagnostico() {
         }
     }
 
-    // 3. Pintar los resultados en la pantalla
+    // 3. Pintar los resultados en la pantalla (sin emojis ni iconos)
     document.getElementById("figura-objetivo").innerText = figura;
     document.getElementById("requisito-previo").innerText = requisito;
     document.getElementById("via-procedimiento").innerText = via;
@@ -94,13 +94,13 @@ function calcularDiagnostico() {
     let htmlContenido = "";
     if (decisiones.length > 0) {
         htmlContenido += `<div class="block-decision">
-            <h4>🎯 Acciones Recomendadas</h4>
+            <h4>Acciones y Recomendaciones Estratégicas</h4>
             <ul>${decisiones.map(d => `<li>${d}</li>`).join('')}</ul>
         </div>`;
     }
     if (checklist.length > 0) {
         htmlContenido += `<div class="block-decision">
-            <h4>📋 Tareas Prioritarias</h4>
+            <h4>Hitos y Tareas Prioritarias</h4>
             <ul>${checklist.map(c => `<li>${c}</li>`).join('')}</ul>
         </div>`;
     }
