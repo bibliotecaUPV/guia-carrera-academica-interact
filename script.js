@@ -17,25 +17,32 @@ function calcularDiagnostico() {
     let recUpv = [];
 
     // 2. Lógica de decisiones cruzadas
-    if (doctor === "no") {
-        figura = "Doctorado & Etapa Predoctoral";
-        requisito = "Matrícula en Programa de Doctorado y plan de investigación";
-        via = "Vía Universitaria / Tutorización de Tesis";
-
-        // Marco ANECA
+  // Marco ANECA (Valorización cualitativa y narrativa)
         recAneca.push("<strong>Formato de Tesis:</strong> Si alcanzas los tramos de 1-2 o 3-5 artículos JCR, valora optar por la modalidad de Compendio de Publicaciones.");
-        recAneca.push("<strong>Mención Internacional:</strong> Planifica una estancia de al menos 3 meses continuados en un centro extranjero antes de la defensa.");
+        
+        if (estancia === "si") {
+            recAneca.push("<strong>Valorización de la Estancia (ANECA):</strong> No la plantees solo como un mérito formal de 3 meses. Prepara una <em>defensa narrativa</em> justificando su impacto: publicaciones conjuntas resultantes, aprendizaje de metodologías que no existían en tu grupo matriz, o incorporación a redes/proyectos internacionales.");
+        } else {
+            recAneca.push("<strong>Planificación Estratégica de la Estancia:</strong> Más allá de cumplir el requisito de 3 meses para la Mención Internacional, elige un grupo receptor donde puedas generar al menos una coautoría o aprender una técnica diferencial que puedas defender narrativamente en ANECA.");
+        }
+
         if (articulos === "0") {
             recAneca.push("<strong>Publicaciones:</strong> Priorizar la redacción del primer artículo científico indexado antes del informe de seguimiento del año 2.");
+        } else {
+            recAneca.push("<strong>Relato de Investigación:</strong> Articula tus publicaciones bajo un hilo conductor claro y justificable dentro de las líneas prioritarias de tu área.");
         }
 
         // Criterios e Incentivos UPV
         recUpv.push("<strong>Venia Docendi:</strong> Tramitar la autorización oficial para impartir docencia hasta el límite máximo permitido por tu contrato.");
         recUpv.push("<strong>Formación Docente ICE:</strong> Inscribirte en los cursos de formación del profesorado de la UPV para certificar competencia pedagógica.");
+        
+        if (estancia === "si") {
+            recUpv.push("<strong>Incentivo a la Internacionalización UPV:</strong> Destacar la movilidad en los baremos de proyectos internos y captación de fondos, justificando el retorno o la colaboración activa con el centro de destino.");
+        }
+
         if (docencia !== "0") {
             recUpv.push("<strong>Docencia Acreditada:</strong> Solicitar en el departamento la certificación oficial firmada de las horas impartidas.");
         }
-
     } else {
         // Ya es Doctor/a
         if (estancia === "si" && (articulos === "3_5" || articulos === "mas_5")) {
