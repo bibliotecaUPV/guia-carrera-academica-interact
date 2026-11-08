@@ -77,6 +77,17 @@
         </section>
     </div>
 
-    <script src="script.js"></script>
+   <!-- Carga automática de estilos y scripts sin problemas de caché -->
+    <link rel="stylesheet" href="style.css?v=" id="cache-css">
+    <script src="script.js?v=" id="cache-js"></script>
+
+    <script>
+        // Esto autogenera un código único basado en el momento de la carga para evitar versiones antiguas
+        const versionUnica = new Date().getTime();
+        document.getElementById('cache-css').href = 'style.css?v=' + versionUnica;
+        document.getElementById('cache-js').src = 'script.js?v=' + versionUnica;
+    </script>
+</body>
+</html>
 </body>
 </html>
