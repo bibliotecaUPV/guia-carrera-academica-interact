@@ -17,7 +17,12 @@ function calcularDiagnostico() {
     let recUpv = [];
 
     // 2. Lógica de decisiones cruzadas
-  // Marco ANECA (Valorización cualitativa y narrativa)
+    if (doctor === "no") {
+        figura = "Doctorado & Etapa Predoctoral";
+        requisito = "Matrícula en Programa de Doctorado y plan de investigación";
+        via = "Vía Universitaria / Tutorización de Tesis";
+
+        // Marco ANECA
         recAneca.push("<strong>Formato de Tesis:</strong> Si alcanzas los tramos de 1-2 o 3-5 artículos JCR, valora optar por la modalidad de Compendio de Publicaciones.");
         
         if (estancia === "si") {
@@ -43,6 +48,7 @@ function calcularDiagnostico() {
         if (docencia !== "0") {
             recUpv.push("<strong>Docencia Acreditada:</strong> Solicitar en el departamento la certificación oficial firmada de las horas impartidas.");
         }
+
     } else {
         // Ya es Doctor/a
         if (estancia === "si" && (articulos === "3_5" || articulos === "mas_5")) {
