@@ -1,113 +1,101 @@
 function calcularDiagnostico() {
-    // 1. Recoger los valores del formulario
+    // 1. Recoger respuestas
     const doctor = document.getElementById("p_doctor").value;
     const estancia = document.getElementById("p_estancia").value;
     const articulos = document.getElementById("p_articulos").value;
     const docencia = document.getElementById("p_docencia").value;
 
     const cardResultado = document.getElementById("resultado-card");
-    const contenidoSubetapas = document.getElementById("subetapas-contenido");
+    const divAneca = document.getElementById("aneca-contenido");
+    const divUpv = document.getElementById("upv-contenido");
 
     let figura = "";
     let requisito = "";
     let via = "";
-    let decisiones = [];
-    let checklist = [];
 
-    // 2. Lógica de cruce de variables (Árbol de decisión académico)
+    let recAneca = [];
+    let recUpv = [];
+
+    // 2. Lógica de decisiones cruzadas
     if (doctor === "no") {
-        figura = "Doctorado (Paso 0) & Planificación Predoctoral";
-        requisito = "Matrícula en programa de doctorado y avance de tesis";
-        via = "Vía Académica / Universidad";
-        
-        decisiones = [
-            "<strong>Tesis Tradicional vs. Compendio de Publicaciones:</strong> Con tus métricas actuales, valorar el compendio te permitiría llegar a la defensa con los artículos ya publicados.",
-            "<strong>Estrategia de Estancias:</strong> Es el momento clave para planificar una estancia de 3+ meses para lograr la Mención Internacional."
-        ];
-        
+        figura = "Doctorado & Etapa Predoctoral";
+        requisito = "Matrícula en Programa de Doctorado y plan de investigación";
+        via = "Vía Universitaria / Tutorización de Tesis";
+
+        // Marco ANECA
+        recAneca.push("<strong>Formato de Tesis:</strong> Si alcanzas los tramos de 1-2 o 3-5 artículos JCR, valora optar por la modalidad de Compendio de Publicaciones.");
+        recAneca.push("<strong>Mención Internacional:</strong> Planifica una estancia de al menos 3 meses continuados en un centro extranjero antes de la defensa.");
         if (articulos === "0") {
-            checklist.push("<strong>Investigación:</strong> Priorizar la redacción de al menos 1-2 artículos JCR/SJR antes de enfilar el tercer año de tesis.");
-        } else {
-            checklist.push("<strong>Investigación en marcha:</strong> Buen ritmo de publicaciones. Mantén perfiles actualizados en ORCID y Google Scholar.");
+            recAneca.push("<strong>Publicaciones:</strong> Priorizar la redacción del primer artículo científico indexado antes del informe de seguimiento del año 2.");
         }
 
-        if (docencia === "0") {
-            checklist.push("<strong>Docencia:</strong> Solicitar la venia docendi en tu departamento para empezar a sumar horas oficiales (hasta el límite de tu contrato).");
-        } else {
-            checklist.push("<strong>Docencia:</strong> ¡Excelente! Ya acumulas horas docentes. Guarda certificados de cada curso impartido.");
+        // Criterios e Incentivos UPV
+        recUpv.push("<strong>Venia Docendi:</strong> Tramitar la autorización oficial para impartir docencia hasta el límite máximo permitido por tu contrato.");
+        recUpv.push("<strong>Formación Docente ICE:</strong> Inscribirte en los cursos de formación del profesorado de la UPV para certificar competencia pedagógica.");
+        if (docencia !== "0") {
+            recUpv.push("<strong>Docencia Acreditada:</strong> Solicitar en el departamento la certificación oficial firmada de las horas impartidas.");
         }
 
     } else {
-        // Ya es Doctor
-        if (estancia === "si" && (articulos === "3_plus")) {
-            figura = "Contrato Postdoctoral Competitivo (Margarita Salas / Juan de la Cierva)";
-            requisito = "Título de Doctor reciente + CV de alto impacto con movilidad";
-            via = "Convocatoria competitiva pública (Ministerio / CCAA). Sin ANECA directa.";
-            
-            decisiones = [
-                "<strong>Movilidad postdoctoral:</strong> Postular a centros de prestigio diferentes al de tu doctorado para maximizar puntuación en convocatorias estatales.",
-                "<strong>Acreditación PEP a futuro:</strong> Ir recopilando méritos para solicitar la acreditación a Profesor Permanente Laboral (PPL) en paralelo."
+        // Ya es Doctor/a
+        if (estancia === "si" && (articulos === "3_5" || articulos === "mas_5")) {
+            figura = "Contrato Postdoctoral / Ayudante Doctor (PAD)";
+            requisito = "Título de Doctor/a + Movilidad postdoctoral + Publicaciones de impacto";
+            via = "Convocatorias públicas o Acreditación PEP (PPL/PAD)";
+
+            recAneca = [
+                "<strong>Acreditación PPL/PAD:</strong> Iniciar la solicitud en ANECA o agencia autonómica correspondiente (PEP).",
+                "<strong>Sexenios Equivalentes:</strong> Verificar que las aportaciones cumplen con los criterios de tramo de investigación."
             ];
-            
-            checklist = [
-                "Carta de aval o aceptación de un grupo receptor de excelencia.",
-                "Certificado oficial de la fecha de lectura de la tesis (para cumplir la ventana temporal de los programas)."
+
+            recUpv = [
+                "<strong>Concursos de Selección de Plantilla:</strong> Tu perfil con estancia de 3+ meses y publicaciones en tramos medios-altos posiciona muy bien en los baremos de plazas de la UPV.",
+                "<strong>Participación en Proyectos I+D:</strong> Solicitar la inclusión como miembro del equipo de investigación en proyectos competitivos con sede en la UPV.",
+                "<strong>Tutorización de TFG/TFM:</strong> Asumir la co-dirección de trabajos de fin de grado/máster para ponderar en los baremos de la universidad."
             ];
 
         } else if (docencia === "mas_60" && articulos !== "0") {
-            figura = "Profesor Permanente Laboral (PPL) / Profesor Ayudante Doctor (PAD)";
-            requisito = "Título de Doctor/a + Experiencia docente acreditada";
-            via = "Acreditación ANECA (Programa PEP/PPL) o Vía Directa LOSU (para PAD)";
-            
-            decisiones = [
-                "Preparar la memoria de acreditación para la agencia evaluadora (ANECA o agencia autonómica como AQU/AVAP).",
-                "Revisar los umbrales mínimos de sexenios equivalentes y tramos de investigación de tu rama."
+            figura = "Profesor Permanente Laboral (PPL) / Profesor Contratado";
+            requisito = "Acreditación ANECA o agencia autonómica + Experiencia docente consolidada";
+            via = "Programa PEP (ANECA) / Concurso de méritos en Universidad";
+
+            recAneca = [
+                "<strong>Acreditación ANECA:</strong> Agrupar certificados de encuestas docentes y aportaciones indexadas.",
+                "<strong>Publicaciones:</strong> Si estás en el tramo de 1-2 artículos, priorizar elevar a tramo 3-5 con foco en revistas Q1/Q2."
             ];
-            
-            checklist = [
-                "Expediente completo de encuestas de satisfacción docente (si procede).",
-                "Certificados firmados por secretaría de departamento de todas las horas impartidas."
+
+            recUpv = [
+                "<strong>Docencia en Valencià / Inglés:</strong> Aprovechar los incentivos y puntos adicionales que otorga la UPV por impartir docencia en lenguas prioritarias.",
+                "<strong>Encuestas de Evaluación:</strong> Mantener una valoración media elevada en el programa de evaluación de la docencia de la UPV (Docentia/equivalente).",
+                "<strong>Transferencia y Convenios:</strong> Participar en contratos art. 60 LOSU / transferencia para potenciar el baremo interno."
             ];
 
         } else {
-            figura = "Acreditación a Profesor Titular de Universidad (TU) / PPL Consolidado";
-            requisito = "Doctorado consolidado + Méritos de investigación y docencia avanzados";
-            via = "Acreditación ANECA (Programa ACADEMIA) / Cuerpo de Funcionarios";
-            
-            decisiones = [
-                "Auditoría de sexenios: Verificar si tus artículos cubren los criterios exigidos en Q1/Q2 por la comisión de tu área.",
-                "Dirección de TFG/TFM o participación en tribunales para sumar méritos de gestión y docencia de posgrado."
+            figura = "Profesor Titular de Universidad (TU) / PPL Consolidado";
+            requisito = "Doctorado consolidado + Liderazgo de investigación y docencia de posgrado";
+            via = "Programa ACADEMIA (ANECA) / Oposición o Concurso OEP";
+
+            recAneca = [
+                "<strong>Programa ACADEMIA:</strong> Contrastar tus artículos (especialmente si estás en el tramo >5) con los baremos específicos de la comisión de tu área.",
+                "<strong>Estancias y Redes:</strong> Verificar el cumplimiento de los meses de movilidad exigidos para el cuerpo docente funcionario."
             ];
-            
-            checklist = [
-                "Aportaciones de investigación indexadas en los tramos temporales requeridos.",
-                "Justificantes de participación en proyectos de I+D competitivos (nacionales o autonómicos)."
+
+            recUpv = [
+                "<strong>Promoción Interna:</strong> Tu volumen de publicaciones y experiencia docente te permite alinearte con las convocatorias de la Oferta de Empleo Público de la UPV.",
+                "<strong>Gestión Académica:</strong> Asumir cargos de gestión unipersonales o de comisión dentro de tu departamento/escuela en la UPV.",
+                "<strong>Dirección de Tesis:</strong> Incorporarte como director/a principal de nuevos doctorandos matriculados en la UPV."
             ];
         }
     }
 
-    // 3. Pintar los resultados en la pantalla (sin iconos)
+    // 3. Renderizar resultados
     document.getElementById("figura-objetivo").innerText = figura;
     document.getElementById("requisito-previo").innerText = requisito;
     document.getElementById("via-procedimiento").innerText = via;
 
-    let htmlContenido = "";
-    if (decisiones.length > 0) {
-        htmlContenido += `<div class="block-decision">
-            <h4>Acciones y Recomendaciones Estratégicas</h4>
-            <ul>${decisiones.map(d => `<li>${d}</li>`).join('')}</ul>
-        </div>`;
-    }
-    if (checklist.length > 0) {
-        htmlContenido += `<div class="block-decision">
-            <h4>Hitos y Tareas Prioritarias</h4>
-            <ul>${checklist.map(c => `<li>${c}</li>`).join('')}</ul>
-        </div>`;
-    }
+    divAneca.innerHTML = `<div class="block-decision"><ul>${recAneca.map(item => `<li>${item}</li>`).join('')}</ul></div>`;
+    divUpv.innerHTML = `<div class="block-decision"><ul>${recUpv.map(item => `<li>${item}</li>`).join('')}</ul></div>`;
 
-    contenidoSubetapas.innerHTML = htmlContenido;
     cardResultado.classList.remove("hidden");
-    
-    // Desplazar suavemente la vista hacia los resultados
     cardResultado.scrollIntoView({ behavior: 'smooth' });
 }
