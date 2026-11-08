@@ -86,7 +86,7 @@ function calcularDiagnostico() {
         }
     }
 
-    // 3. Pintar los resultados en la pantalla (sin emojis ni iconos)
+    // 3. Pintar los resultados en la pantalla (sin iconos)
     document.getElementById("figura-objetivo").innerText = figura;
     document.getElementById("requisito-previo").innerText = requisito;
     document.getElementById("via-procedimiento").innerText = via;
