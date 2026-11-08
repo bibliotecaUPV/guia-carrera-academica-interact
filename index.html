@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asistente de Diagnóstico de Carrera Académica (ANECA / UPV)</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.1">
 </head>
 <body>
     <div class="container">
@@ -88,10 +88,5 @@
     </div>
 
     <!-- Carga con control automático de versión (Anti-caché) -->
-    <script>
-        const v = new Date().getTime();
-        document.write('<link rel="stylesheet" href="style.css?v=' + v + '">');
-        document.write('<script src="script.js?v=' + v + '"><\/script>');
-    </script>
-</body>
+<script src="script.js?v=1.1"></script></body>
 </html>
