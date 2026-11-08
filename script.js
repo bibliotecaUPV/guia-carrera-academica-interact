@@ -1,5 +1,5 @@
 function calcularDiagnostico() {
-    // 1. Recoger respuestas
+    // 1. Recoger respuestas del formulario
     const doctor = document.getElementById("p_doctor").value;
     const estancia = document.getElementById("p_estancia").value;
     const articulos = document.getElementById("p_articulos").value;
@@ -22,7 +22,7 @@ function calcularDiagnostico() {
         requisito = "Matrícula en Programa de Doctorado y plan de investigación";
         via = "Vía Universitaria / Tutorización de Tesis";
 
-        // Marco ANECA (Aquí va la narrativa de la estancia)
+        // Marco ANECA
         recAneca.push("<strong>Formato de Tesis:</strong> Si alcanzas los tramos de 1-2 o 3-5 artículos JCR, valora optar por la modalidad de Compendio de Publicaciones.");
         
         if (estancia === "si") {
@@ -37,7 +37,7 @@ function calcularDiagnostico() {
             recAneca.push("<strong>Relato de Investigación:</strong> Articula tus publicaciones bajo un hilo conductor claro y justificable dentro de las líneas prioritarias de tu área.");
         }
 
-        // Criterios e Incentivos UPV (Libre de la parte de ANECA)
+        // Criterios e Incentivos UPV
         recUpv.push("<strong>Venia Docendi:</strong> Tramitar la autorización oficial para impartir docencia hasta el límite máximo permitido por tu contrato.");
         recUpv.push("<strong>Formación Docente ICE:</strong> Inscribirte en los cursos de formación del profesorado de la UPV para certificar competencia pedagógica.");
         
@@ -48,6 +48,41 @@ function calcularDiagnostico() {
         if (docencia !== "0") {
             recUpv.push("<strong>Docencia Acreditada:</strong> Solicitar en el departamento la certificación oficial firmada de las horas impartidas.");
         }
+
+    } else {
+        // Ya es Doctor/a
+        if (estancia === "si" && (articulos === "3_5" || articulos === "mas_5")) {
+            figura = "Contrato Postdoctoral / Ayudante Doctor (PAD)";
+            requisito = "Título de Doctor/a + Movilidad postdoctoral + Publicaciones de impacto";
+            via = "Convocatorias públicas o Acreditación PEP (PPL/PAD)";
+
+            recAneca = [
+                "<strong>Acreditación PPL/PAD:</strong> Iniciar la solicitud en ANECA o agencia autonómica correspondiente (PEP).",
+                "<strong>Sexenios Equivalentes:</strong> Verificar que las aportaciones cumplen con los criterios de tramo de investigación."
+            ];
+
+            recUpv = [
+                "<strong>Concursos de Selección de Plantilla:</strong> Tu perfil con estancia de 3+ meses y publicaciones en tramos medios-altos posiciona muy bien en los baremos de plazas de la UPV.",
+                "<strong>Participación en Proyectos I+D:</strong> Solicitar la inclusión como miembro del equipo de investigación en proyectos competitivos con sede en la UPV.",
+                "<strong>Tutorización de TFG/TFM:</strong> Asumir la co-dirección de trabajos de fin de grado/máster para ponderar en los baremos de la universidad."
+            ];
+
+        } else if (docencia === "mas_60" && articulos !== "0") {
+            figura = "Profesor Permanente Laboral (PPL) / Profesor Contratado";
+            requisito = "Acreditación ANECA o agencia autonómica + Experiencia docente consolidada";
+            via = "Programa PEP (ANECA) / Concurso de méritos en Universidad";
+
+            recAneca = [
+                "<strong>Acreditación ANECA:</strong> Agrupar certificados de encuestas docentes y aportaciones indexadas.",
+                "<strong>Publicaciones:</strong> Si estás en el tramo de 1-2 artículos, priorizar elevar a tramo 3-5 con foco en revistas Q1/Q2."
+            ];
+
+            recUpv = [
+                "<strong>Docencia en Valencià / Inglés:</strong> Aprovechar los incentivos y puntos adicionales que otorga la UPV por impartir docencia en lenguas prioritarias.",
+                "<strong>Encuestas de Evaluación:</strong> Mantener una valoración media elevada en el programa de evaluación de la docencia de la UPV (Docentia/equivalente).",
+                "<strong>Transferencia y Convenios:</strong> Participar en contratos art. 60 LOSU / transferencia para potenciar el baremo interno."
+            ];
+
         } else {
             figura = "Profesor Titular de Universidad (TU) / PPL Consolidado";
             requisito = "Doctorado consolidado + Liderazgo de investigación y docencia de posgrado";
@@ -66,7 +101,7 @@ function calcularDiagnostico() {
         }
     }
 
-    // 3. Renderizar resultados
+    // 3. Renderizar resultados en pantalla
     document.getElementById("figura-objetivo").innerText = figura;
     document.getElementById("requisito-previo").innerText = requisito;
     document.getElementById("via-procedimiento").innerText = via;
