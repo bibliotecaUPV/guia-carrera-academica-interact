@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente de Diagnóstico de Carrera Académica (ANECA / LOSU)</title>
+    <title>Asistente de Diagnóstico de Carrera Académica (ANECA / UPV)</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Asistente de Orientación Académica</h1>
-            <p class="subtitle">Responde a estas breves preguntas para obtener tu diagnóstico, figura objetivo y plan de acción a medida.</p>
+            <p class="subtitle">Evaluación de requisitos de acreditación oficial y alineación con los criterios e incentivos de la universidad.</p>
         </header>
 
         <section class="card">
@@ -35,9 +35,10 @@
             <div class="form-group">
                 <label>3. ¿Cuántos artículos en revistas indexadas (JCR / SJR) tienes publicados o aceptados?</label>
                 <select id="p_articulos">
-                    <option value="0">Ninguno (0)</option>
-                    <option value="1_2">1 o 2 artículos</option>
-                    <option value="3_plus">3 o más artículos (Alto impacto / Compendio)</option>
+                    <option value="0">0 artículos (Fase inicial)</option>
+                    <option value="1_2">1 a 2 artículos</option>
+                    <option value="3_5">3 a 5 artículos (Umbral de acreditación inicial)</option>
+                    <option value="mas_5">Más de 5 artículos (Perfil consolidado Q1/Q2)</option>
                 </select>
             </div>
 
@@ -50,11 +51,12 @@
                 </select>
             </div>
 
-            <button class="btn-calcular" onclick="calcularDiagnostico()">Obtener mi Diagnóstico y Hoja de Ruta</button>
+            <button class="btn-calcular" onclick="calcularDiagnostico()">Obtener Diagnóstico Integrado (ANECA + UPV)</button>
         </section>
 
         <section id="resultado-card" class="card hidden">
-            <h2>Tu Diagnóstico Personalizado</h2>
+            <h2>Diagnóstico Integrado de Carrera</h2>
+            
             <div class="grid-results">
                 <div class="result-box">
                     <h3>Figura Objetivo Inmediata</h3>
@@ -65,29 +67,31 @@
                     <p id="requisito-previo">-</p>
                 </div>
                 <div class="result-box">
-                    <h3>Vía o Procedimiento ANECA / LOSU</h3>
+                    <h3>Vía / Procedimiento Principal</h3>
                     <p id="via-procedimiento">-</p>
                 </div>
             </div>
 
             <div class="subetapas-container">
-                <h3> Decisiones Clave e Hitos Recomendados para tu Perfil</h3>
-                <div id="subetapas-contenido"></div>
+                <div class="dual-columns">
+                    <div class="column-aneca">
+                        <h3>Marco ANECA / LOSU (Acreditación Oficial)</h3>
+                        <div id="aneca-contenido"></div>
+                    </div>
+                    <div class="column-upv">
+                        <h3>Criterios e Incentivos Internos UPV</h3>
+                        <div id="upv-contenido"></div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
 
-   <!-- Carga automática de estilos y scripts sin problemas de caché -->
-    <link rel="stylesheet" href="style.css?v=" id="cache-css">
-    <script src="script.js?v=" id="cache-js"></script>
-
+    <!-- Carga con control automático de versión (Anti-caché) -->
     <script>
-        // Esto autogenera un código único basado en el momento de la carga para evitar versiones antiguas
-        const versionUnica = new Date().getTime();
-        document.getElementById('cache-css').href = 'style.css?v=' + versionUnica;
-        document.getElementById('cache-js').src = 'script.js?v=' + versionUnica;
+        const v = new Date().getTime();
+        document.write('<link rel="stylesheet" href="style.css?v=' + v + '">');
+        document.write('<script src="script.js?v=' + v + '"><\/script>');
     </script>
-</body>
-</html>
 </body>
 </html>
