@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente de Diagnóstico de Carrera Académica (ANECA / LOSU)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Asistente de Orientación Académica</h1>
+            <p class="subtitle">Responde a estas breves preguntas para obtener tu diagnóstico, figura objetivo y plan de acción a medida.</p>
+        </header>
+
+        <section class="card">
+            <h2>Cuestionario de Evaluación</h2>
+            
+            <div class="form-group">
+                <label>1. ¿Tienes ya el título de Doctor/a?</label>
+                <select id="p_doctor">
+                    <option value="no">No (Etapa Predoctoral)</option>
+                    <option value="si">Sí (Ya obtenido)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>2. ¿Has realizado (o estás realizando) estancias de investigación en el extranjero u otra universidad?</label>
+                <select id="p_estancia">
+                    <option value="no">Ninguna / Menos de 3 meses</option>
+                    <option value="si">Sí (3 meses o más - Mención Internacional / Postdoc)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>3. ¿Cuántos artículos en revistas indexadas (JCR / SJR) tienes publicados o aceptados?</label>
+                <select id="p_articulos">
+                    <option value="0">Ninguno (0)</option>
+                    <option value="1_2">1 o 2 artículos</option>
+                    <option value="3_plus">3 o más artículos (Alto impacto / Compendio)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>4. ¿Cuántas horas de docencia oficial universitaria has impartido aproximadamente?</label>
+                <select id="p_docencia">
+                    <option value="0">Ninguna (0 horas)</option>
+                    <option value="menos_60">Menos de 60 horas (Venia docendi / Colaboración)</option>
+                    <option value="mas_60">Más de 60 horas / Experiencia docente consolidada</option>
+                </select>
+            </div>
+
+            <button class="btn-calcular" onclick="calcularDiagnostico()">Obtener mi Diagnóstico y Hoja de Ruta</button>
+        </section>
+
+        <section id="resultado-card" class="card hidden">
+            <h2>Tu Diagnóstico Personalizado</h2>
+            <div class="grid-results">
+                <div class="result-box">
+                    <h3>Figura Objetivo Inmediata</h3>
+                    <p id="figura-objetivo" class="highlight">-</p>
+                </div>
+                <div class="result-box">
+                    <h3>Requisito Previo Principal</h3>
+                    <p id="requisito-previo">-</p>
+                </div>
+                <div class="result-box">
+                    <h3>Vía o Procedimiento ANECA / LOSU</h3>
+                    <p id="via-procedimiento">-</p>
+                </div>
+            </div>
+
+            <div class="subetapas-container">
+                <h3>💡 Decisiones Clave e Hitos Recomendados para tu Perfil</h3>
+                <div id="subetapas-contenido"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
